@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
     <title>FlowTrack</title>
 </head>
 <body>
     <nav class="navbar">
         <a class="navbar-brand" href="#">
-            <img src="{{ url_for('static', filename='logo.png') }}" width="50" height="50" class="d-inline-block align-top" alt="">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" width="50" height="50" class="d-inline-block align-top" alt="">
             FlowTrack
         </a>
         <form class="form-inline">
@@ -26,31 +26,28 @@
     </nav>
 
     <div class="kanban-board">
-        <div class="column">
-            <h2>To Do</h2>
-            <div class="card">Task 1</div>
-            <div class="card">Task 2</div>
+        <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <h2> To Do </h2>
+            <div class="card" draggable="true" ondragstart="drag(event)">Task 1 title </div>
+            <div class="card" draggable="true" ondragstart="drag(event)">Task 2 title </div>
             <!-- More cards for the "To Do" column -->
         </div>
-        <div class="column">
-            <h2>In Progress</h2>
-            <div class="card">Task 3</div>
-            <div class="card">Task 4</div>
+        <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <h2> In progress </h2>
+            <div class="card" draggable="true" ondragstart="drag(event)">Task 3 title </div>
+            <div class="card" draggable="true" ondragstart="drag(event)">Task 4 title </div>
             <!-- More cards for the "In Progress" column -->
         </div>
-        <div class="column">
-            <h2>Done</h2>
-            <div class="card">Task 5</div>
+        <div class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <h2> Done </h2>
+            <div class="card" draggable="true" ondragstart="drag(event)">Task 5 title </div>
             <!-- More cards for the "Done" column -->
         </div>
     </div>
 
     
     
-    
-    
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="static/js/kanban.js"></script>
 </body>
 </html>
