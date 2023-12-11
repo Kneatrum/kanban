@@ -1,0 +1,38 @@
+
+
+.navbar {
+display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.kanban-board {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px auto;
+}
+
+.column {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 30%;
+    background-color: #f9f9f9;
+}
+
+.column h2 {
+    margin-top: 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 8px;
+}
