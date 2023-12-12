@@ -39,3 +39,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+$(document).ready(function(){
+
+    $('#formModal').on('hidden.bs.modal', function (e) {
+        // Clear input fields within the modal when it's hidden
+        $(this).find('input[type=text], textarea').val('');
+    });
+    
+
+    $('.add-task-button').click(function(){
+        var buttonInfo = $(this).data('info');
+        $('#formModal').modal('show');
+        $('.modal-info').text(buttonInfo);
+        $('#add-task-button').data('button-info', buttonInfo);
+    });
+
+    $('#formModal').on('submit', '#textInput', function(e){
+        e.preventDefault(); // Prevents default form submission
+
+        // Gather form data
+        var formData = {
+            Title: $('#Title').val(),
+            Details: $('#Details').val(),
+            buttonInfo: $('#add-task-button').data('button-info') // Adding button info directly to formData
+        };
+
+        // Send an AJAX POST request to app.py
+        $.ajax({
+            type: 'POST',
+            url: '/submited-form',
+            data: JSON.stringify(formData),
+            contentType: 'application/json',
+            success: function(response) {
+                // Handle success response from the server
+                console.log(formData);
+                console.log('Data sent successfully!');
+                console.log(response);
+                $('#formModal').modal('hide'); // Close the modal
+                // Additional actions here
+            },
+            error: function(error) {
+                // Handle error response from the server
+                console.error('Error:', error);
+                // Additional error handling here 
+            }
+        });
+    });
+});
+
+
+
+
+
