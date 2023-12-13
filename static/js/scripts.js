@@ -1,11 +1,16 @@
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Variables to hold the task that will be moved and the destination column.
+    let taskId = null;
+    let columnId = null;
+
     const columns = document.querySelectorAll('.column');
     let draggedItem = null;
 
     columns.forEach(column => {
         column.addEventListener('dragstart', event => {
             draggedItem = event.target.closest('.card');
+            taskId = draggedItem.id;  // Obtaining the task id.
             if (!draggedItem) return;
             event.dataTransfer.setData('text/plain', null); // Required for Firefox
         });
@@ -16,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         column.addEventListener('drop', event => {
             const dropTarget = event.target.closest('.column');
+            columnId = dropTarget.id; // Obtaining the column id.
             if (!dropTarget) return;
 
             if (draggedItem) {
@@ -35,10 +41,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     dropTarget.appendChild(draggedItem);
                 }
+
+                // Here we send the task id and colun id to the changes route via POST method.
+                $.ajax({ 
+                    type: 'POST', 
+                    url: '/changes', 
+                    contentType: 'application/json', 
+                    data: JSON.stringify({ 'taskId': taskId, 'columnId': columnId}), 
+                    success: function(response) {  
+                        console.log(response); 
+                    }, 
+                    error: function(error) { 
+                        console.log(error); 
+                    } 
+                });
             }
         });
     });
 });
+
 
 $(document).ready(function(){
 
@@ -56,7 +77,7 @@ $(document).ready(function(){
     });
 
     $('#formModal').on('submit', '#textInput', function(e){
-        e.preventDefault(); // Prevents default form submission
+        e.preventDefault(); // Prevent default form submission
 
         // Gather form data
         var formData = {
@@ -71,6 +92,7 @@ $(document).ready(function(){
             url: '/submited-form',
             data: JSON.stringify(formData),
             contentType: 'application/json',
+            timeout: 3000, // In case the server takes too long to respond.
             success: function(response) {
                 // Handle success response from the server
                 console.log(formData);
