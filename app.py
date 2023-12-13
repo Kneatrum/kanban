@@ -33,3 +33,16 @@ def submited():
         return jsonify({'message': 'Data was successfully received'}), 200
     else:
         return jsonify({'error': 'Invalid request'}), 400
+    
+@app.route('/changes', methods=['POST'])
+def changes():
+    if request.method == 'POST':
+        data = request.get_json()
+        task_id = data.get('taskId')
+        new_column = data.get('columnId')
+
+        print('Task: ', task_id)
+        print('Column: ', new_column)
+        return jsonify({'message': 'Data was successfully received'}), 200
+    else:
+        return jsonify({'error': 'Message not received'}), 400
