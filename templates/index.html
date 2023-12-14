@@ -30,7 +30,7 @@
     </nav>
 
     <div class="kanban-board">
-        <div class="column" id="column_1">
+        <div class="column" id="to_do">
             <h2> To Do </h2>
             <button type="button" id="add-task-button" class="add-task-button" data-info="to_do">Add Task</button>
             {% for task in to_do %}
@@ -42,24 +42,24 @@
             {% endfor %}
         </div>
 
-        <div class="column" id="column_2">
+        <div class="column" id="in_progress">
             <h2> In progress </h2>
             <button type="button" id="add-task-button" class="add-task-button" data-info="in_progress" >Add Task</button>
             {% for task in in_progress %}
             {% set task_id = 'task' ~ task['id'] %}
-            <div class="card" draggable="true" id="task_3">
+            <div class="card" draggable="true" id="{{task_id}}">
                 <h3>{{ task["title"] }}</h3> 
                 <p>{{ task["body"] }}</p>
             </div>
             {% endfor %}
         </div>
 
-        <div class="column" id="column_3">
+        <div class="column" id="done">
             <h2> Done </h2>
             <button type="button" id="add-task-button" class="add-task-button" data-info="done">Add Task</button>
             {% for task in done %}
             {% set task_id = 'task_' ~ task['id'] %}
-            <div class="card" draggable="true" id="task_5">
+            <div class="card" draggable="true" id="{{task_id}}">
                 <h3>{{ task["title"] }}</h3> 
                 <p>{{ task["body"] }}</p>
             </div>
