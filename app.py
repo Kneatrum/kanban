@@ -19,7 +19,7 @@ def index():
     print ('In progress', in_progress)
     print ('Done tasks', done)
 
-    return render_template('index.html')
+    return render_template('index.html', to_do=to_do)
 
 
 @app.route('/submited-form', methods=['POST'])
