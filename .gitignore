@@ -1,2 +1,5 @@
-__pycache__/
+# Ignore data.db file.
 data.db
+
+# Ignore the __pycache__ file.
+__pycache__/
