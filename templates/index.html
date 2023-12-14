@@ -45,23 +45,25 @@
         <div class="column" id="column_2">
             <h2> In progress </h2>
             <button type="button" id="add-task-button" class="add-task-button" data-info="in_progress" >Add Task</button>
+            {% for task in in_progress %}
+            {% set task_id = 'task' ~ task['id'] %}
             <div class="card" draggable="true" id="task_3">
-                <h3>{{ "Task 3 title" }}</h3>
-                <p>{{ "Task 3 body content" }}</p>
+                <h3>{{ task["title"] }}</h3> 
+                <p>{{ task["body"] }}</p>
             </div>
-            <div class="card" draggable="true" id="task_4">
-                <h3>{{ "Task 4 title" }}</h3> 
-                <p>{{ "Task 4 body content" }}</p>
-            </div>
+            {% endfor %}
         </div>
 
         <div class="column" id="column_3">
             <h2> Done </h2>
             <button type="button" id="add-task-button" class="add-task-button" data-info="done">Add Task</button>
+            {% for task in done %}
+            {% set task_id = 'task_' ~ task['id'] %}
             <div class="card" draggable="true" id="task_5">
-                <h3>{{ "Task 5 title" }}</h3>
-                <p>{{ "Task 5 body content" }}</p>
+                <h3>{{ task["title"] }}</h3> 
+                <p>{{ task["body"] }}</p>
             </div>
+            {% endfor %}
         </div>
 
     </div>
