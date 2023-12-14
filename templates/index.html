@@ -33,14 +33,12 @@
         <div class="column" id="column_1">
             <h2> To Do </h2>
             <button type="button" id="add-task-button" class="add-task-button" data-info="to_do">Add Task</button>
-            {% for task in tasks %}
-            {% if task['to_do'] %}
+            {% for task in to_do %}
             {% set task_id = 'task_' ~ task['id'] %}
             <div class="card" draggable="true" id="{{task_id}}">
                 <h3>{{ task["title"] }}</h3> 
                 <p>{{ task["body"] }}</p>
             </div>
-            {% endif %}
             {% endfor %}
         </div>
 
