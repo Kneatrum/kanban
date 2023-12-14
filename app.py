@@ -1,9 +1,8 @@
 from flask import Flask, redirect, render_template, request, session, url_for, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
-
 from helpers import *
-
 import sqlite3
+import re
 
 # Configure application
 app = Flask(__name__)
@@ -97,6 +96,8 @@ def create_task(title, body, column):
 
 
 def update_gui_changes(task_id, new_column):
+
+    task_id = re.search(r'\d+', task_id).group()
 
     with sqlite3.connect('data.db') as connection:
         cursor = connection.cursor()
