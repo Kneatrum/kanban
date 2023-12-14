@@ -33,26 +33,27 @@
         <div class="column" id="column_1">
             <h2> To Do </h2>
             <button type="button" id="add-task-button" class="add-task-button" data-info="to_do">Add Task</button>
-            <div class="card" draggable="true" id="task_1">
-                <h3> Task 1 title  </h3> 
-                <p> Task 1 body content </p>
+            {% for task in tasks %}
+            {% if task['to_do'] %}
+            {% set task_id = 'task_' ~ task['id'] %}
+            <div class="card" draggable="true" id="{{task_id}}">
+                <h3>{{ task["title"] }}</h3> 
+                <p>{{ task["body"] }}</p>
             </div>
-            <div class="card" draggable="true" id="task_2">
-                <h3> Task 2 title  </h3>
-                <p> Task 2 body content </p>
-            </div>
+            {% endif %}
+            {% endfor %}
         </div>
 
         <div class="column" id="column_2">
             <h2> In progress </h2>
-            <button type="button" id="add-task-button" class="add-task-button" data-info="in_prg" >Add Task</button>
+            <button type="button" id="add-task-button" class="add-task-button" data-info="in_progress" >Add Task</button>
             <div class="card" draggable="true" id="task_3">
-                <h3> Task 3 title  </h3>
-                <p> Task 3 body content </p>
+                <h3>{{ "Task 3 title" }}</h3>
+                <p>{{ "Task 3 body content" }}</p>
             </div>
             <div class="card" draggable="true" id="task_4">
-                <h3> Task 4 title </h3> 
-                <p> Task 4 body content </p>
+                <h3>{{ "Task 4 title" }}</h3> 
+                <p>{{ "Task 4 body content" }}</p>
             </div>
         </div>
 
@@ -60,8 +61,8 @@
             <h2> Done </h2>
             <button type="button" id="add-task-button" class="add-task-button" data-info="done">Add Task</button>
             <div class="card" draggable="true" id="task_5">
-                <h3> Task 5 title </h3>
-                <p> Task 5 body content </p>
+                <h3>{{ "Task 5 title" }}</h3>
+                <p>{{ "Task 5 body content" }}</p>
             </div>
         </div>
 
