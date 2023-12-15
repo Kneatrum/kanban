@@ -14,19 +14,9 @@
 <body>
     <nav class="navbar">
         <a class="navbar-brand" href="#">
-            <img src="{{ url_for('static', filename='images/logo.png') }}" width="50" height="50" class="d-inline-block align-top" alt="">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" width="50" height="50" class="d-inline-block align-top logo-image" alt="">
             FlowTrack
         </a>
-        <form class="form-inline">
-            <div class="row">
-                <div class="col-auto">
-                    <input type="text" class="form-control" placeholder="Search" autocomplete="off" aria-label="Search">
-                </div>
-                <div class="col-auto"> 
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </div>
-            </div>
-        </form>
     </nav>
 
     <div class="kanban-board">
