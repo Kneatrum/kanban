@@ -14,10 +14,6 @@ def index():
     to_do = retrieve_data('to_do')
     in_progress = retrieve_data('in_progress')
     done = retrieve_data('done')
-    print ("To do", to_do)
-    print ('In progress', in_progress)
-    print ('Done tasks', done)
-
     return render_template('index.html', to_do=to_do, in_progress=in_progress, done=done)
 
 
@@ -28,13 +24,7 @@ def submited():
         title = data.get('Title')
         body = data.get('Details')
         column = data.get('buttonInfo')
-        result = createTableIfNotExists()
-        print("Db created", result)
-
-        print("Title: ", title)
-        print("Details: ", body)
-        print("ButtonInfo: ", column)
-
+        createTableIfNotExists()
         create_task(title, body, column)
         
         return jsonify({'message': 'Data was successfully received'}), 200
@@ -48,9 +38,6 @@ def changes():
         data = request.get_json()
         task_id = data.get('taskId')
         new_column = data.get('columnId')
-
-        print('Task: ', task_id)
-        print('Column: ', new_column)
 
         update_gui_changes(task_id, new_column)
 
@@ -79,7 +66,6 @@ def createTableIfNotExists():
 def create_task(title, body, column):
 
     if column not in ['to_do', 'in_progress', 'done']:
-        print('Not found')
         return False
 
     with sqlite3.connect('data.db') as connection:
@@ -87,7 +73,6 @@ def create_task(title, body, column):
 
         try:
             cursor.execute('INSERT INTO tasks (title, body, column) VALUES (?, ?, ?);', (title, body, column))
-            print('Success updating changes!')
             return True
         except sqlite3.Error as e:
             print("Error", e )
