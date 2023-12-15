@@ -98,6 +98,7 @@ $(document).ready(function(){
                 console.log(formData);
                 console.log('Data sent successfully!');
                 console.log(response);
+                location.reload();
                 $('#formModal').modal('hide'); // Close the modal
                 // Additional actions here
             },
