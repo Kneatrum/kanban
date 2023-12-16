@@ -113,5 +113,30 @@ $(document).ready(function(){
 
 
 
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+const tasks = document.querySelectorAll('.card');
+tasks.forEach(task => {
+    task.addEventListener('dblclick', event => {
+        clickedItem = event.target.closest('.card');
+        let taskId = clickedItem.id;  // Obtaining the task id.
+        console.log("Clicked Task: ", taskId);
+        modal.style.display = "block";
+        if (!clickedItem) return;
+        // event.dataTransfer.setData('text/plain', null); // Required for Firefox
+    });
+});
+
+
+$(document).ready(function () {
+
+    $('.edit-icon').on('click', function () {
+        
+    });
+
+});
+
 
 
