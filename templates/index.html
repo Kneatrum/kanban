@@ -36,7 +36,7 @@
             <h2> In progress </h2>
             <button type="button" id="add-task-button" class="add-task-button" data-info="in_progress" >Add Task</button>
             {% for task in in_progress %}
-            {% set task_id = 'task' ~ task['id'] %}
+            {% set task_id = 'task_' ~ task['id'] %}
             <div class="card" draggable="true" id="{{task_id}}">
                 <h3>{{ task["title"] }}</h3> 
                 <p>{{ task["body"] }}</p>
@@ -85,7 +85,7 @@
         </div>
         </div>
     </div>
-    
+
     <script src="static/js/scripts.js"></script>
 </body>
 </html>
