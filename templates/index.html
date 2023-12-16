@@ -8,6 +8,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> <!-- necessary for the use of ajax -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- To enable adding icons -->
+
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
     <title>FlowTrack</title>
 </head>
@@ -83,6 +85,49 @@
                 <!-- <p class="modal-info"></p> -->
             </div>
         </div>
+        </div>
+    </div>
+
+
+    <div class="modal" tabindex="-1" role="dialog" id="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalTitle"> Details </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="textInput">
+                        <div class="form-group">
+                            <label for="Title">Title
+                                <span class="edit-icon">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </span>
+                            </label>
+                            <div class="editable-field">
+                                <p class="normal-text">Your title text here</p>
+                                <input type="text" class="form-control edit-text" id="Title" name="Title" style="display: none;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Details">Details
+                                <span class="edit-icon">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </span>
+                            </label>
+                            <div class="editable-field">
+                                <p class="normal-text">Your title text here</p>
+                                <input type="text" class="form-control edit-text" id="Title" name="Title" style="display: none;">
+                            </div>
+                        </div>
+                        <!-- <button type="button" class="btn btn-primary edit-btn">Edit</button> -->
+                        <!-- <button type="submit" class="btn btn-primary save-btn" style="display: none;">Save</button> -->
+                        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
