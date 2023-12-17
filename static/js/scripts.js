@@ -116,13 +116,20 @@ $(document).ready(function(){
 // Get the modal
 var modal = document.getElementById("myModal");
 
+let TaskTitle =null;
+let TaskDescription =null;
+
 // Get the button that opens the modal
 const tasks = document.querySelectorAll('.card');
 tasks.forEach(task => {
     task.addEventListener('dblclick', event => {
         clickedItem = event.target.closest('.card');
         let taskId = clickedItem.id;  // Obtaining the task id.
+        TaskTitle = clickedItem.querySelector('h3').textContent;
+        TaskDescription = clickedItem.querySelector('p').textContent;
         console.log("Clicked Task: ", taskId);
+        console.log("Task Title: ", TaskTitle);
+        console.log("Task Description: ", TaskDescription);
         modal.style.display = "block";
         if (!clickedItem) return;
         // event.dataTransfer.setData('text/plain', null); // Required for Firefox
@@ -146,8 +153,7 @@ $(document).ready(function () {
 
         // Transfer text from paragraph to input when switching to edit mode
         if ($('.title-normal-text').css('display') === 'none') {
-            var titleText = $('.title-normal-text').text().trim();
-            $('.title-edit-text').val(titleText);
+            $('.title-edit-text').val(TaskTitle);
         }
     });
 
@@ -166,8 +172,7 @@ $(document).ready(function () {
         
         // Transfer text from paragraph to input when switching to edit mode
         if ($('.details-normal-text').css('display') === 'none') {
-            var titleText = $('.details-normal-text').text().trim();
-            $('.details-edit-text').val(titleText);
+            $('.details-edit-text').val(TaskDescription);
         }
     });
 
