@@ -116,6 +116,16 @@ $(document).ready(function(){
 // Get the modal
 var modal = document.getElementById("myModal");
 
+
+const titleEditableField = document.querySelector('.title-editable-field');
+const normalTitleText = titleEditableField.querySelector('.title-normal-text');
+const editTitleText = titleEditableField.querySelector('.title-edit-text');
+
+const detailsEditableField = document.querySelector('.details-editable-field');
+const normalDetailText = detailsEditableField.querySelector('.details-normal-text');
+const editDetailsText = detailsEditableField.querySelector('.details-edit-text');
+
+
 let TaskTitle =null;
 let TaskDescription =null;
 
@@ -128,6 +138,14 @@ tasks.forEach(task => {
         TaskTitle = clickedItem.querySelector('h3').textContent;
         TaskDescription = clickedItem.querySelector('p').textContent;
         console.log("Clicked Task: ", taskId);
+        normalTitleText.textContent = TaskTitle;
+        normalTitleText.style.display = "block";
+        editTitleText.textContent = "none";
+
+        normalDetailText.textContent = TaskDescription;
+        normalDetailText.style.display = "block";
+        editDetailsText.textContent = "none";
+
         modal.style.display = "block";
         if (!clickedItem) return;
         // event.dataTransfer.setData('text/plain', null); // Required for Firefox
@@ -151,7 +169,8 @@ $(document).ready(function () {
 
         // Transfer text from paragraph to input when switching to edit mode
         if ($('.title-normal-text').css('display') === 'none') {
-            $('.title-edit-text').val(TaskTitle);
+            var titleText = $('.title-normal-text').text().trim();
+            $('.title-edit-text').val(titleText);
         }
     });
 
@@ -170,7 +189,8 @@ $(document).ready(function () {
         
         // Transfer text from paragraph to input when switching to edit mode
         if ($('.details-normal-text').css('display') === 'none') {
-            $('.details-edit-text').val(TaskDescription);
+            var descriptionText = $('.details-normal-text').text().trim();
+            $('.details-edit-text').val(descriptionText);
         }
     });
 
