@@ -167,6 +167,12 @@ $(document).ready(function () {
             $('.save-btn').toggle();
         }
 
+        // Toggle visibility of the cancel button only if it is not visible.
+        if ($('.cancel-btn').css('display') === 'none') {
+            $('.cancel-btn').toggle();
+        }
+
+
         // Transfer text from paragraph to input when switching to edit mode
         if ($('.title-normal-text').css('display') === 'none') {
             var titleText = $('.title-normal-text').text().trim();
@@ -186,6 +192,11 @@ $(document).ready(function () {
         if ($('.save-btn').css('display') === 'none') {
             $('.save-btn').toggle();
         }
+
+        // Toggle visibility of the cancel button only if it is not visible.
+        if ($('.cancel-btn').css('display') === 'none') {
+            $('.cancel-btn').toggle();
+        }
         
         // Transfer text from paragraph to input when switching to edit mode
         if ($('.details-normal-text').css('display') === 'none') {
@@ -198,6 +209,11 @@ $(document).ready(function () {
     
     $('.save-btn').on('click', function () {
         // Actions when the user clicks the submit button.
+    });
+
+    $('.cancel-btn').on('click', function () {
+        $('#myModal').modal('hide');
+        console.log('Cancel button clicked');
     });
 
 
