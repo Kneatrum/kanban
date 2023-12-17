@@ -128,8 +128,6 @@ tasks.forEach(task => {
         TaskTitle = clickedItem.querySelector('h3').textContent;
         TaskDescription = clickedItem.querySelector('p').textContent;
         console.log("Clicked Task: ", taskId);
-        console.log("Task Title: ", TaskTitle);
-        console.log("Task Description: ", TaskDescription);
         modal.style.display = "block";
         if (!clickedItem) return;
         // event.dataTransfer.setData('text/plain', null); // Required for Firefox
