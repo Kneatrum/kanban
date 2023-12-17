@@ -132,9 +132,51 @@ tasks.forEach(task => {
 
 $(document).ready(function () {
 
-    $('.edit-icon').on('click', function () {
-        
+    $('.title-edit-icon').on('click', function () {
+        console.log("Edit icon clicked");
+        // Toggle visibility of paragraph and input elements
+        $('.title-normal-text').toggle();
+        $('.title-edit-text').toggle();
+        $('.title-edit-icon').toggle();
+
+        // Toggle visibility of the save button only if it is not visible.
+        if ($('.save-btn').css('display') === 'none') {
+            $('.save-btn').toggle();
+        }
+
+        // Transfer text from paragraph to input when switching to edit mode
+        if ($('.title-normal-text').css('display') === 'none') {
+            var titleText = $('.title-normal-text').text().trim();
+            $('.title-edit-text').val(titleText);
+        }
     });
+
+
+    $('.details-edit-icon').on('click', function () {
+        console.log("Edit icon clicked");
+        // Toggle visibility of paragraph and input elements
+        $('.details-normal-text').toggle();
+        $('.details-edit-text').toggle();
+        $('.details-edit-icon').toggle();
+
+        // Toggle visibility of the save button only if it is not visible.
+        if ($('.save-btn').css('display') === 'none') {
+            $('.save-btn').toggle();
+        }
+        
+        // Transfer text from paragraph to input when switching to edit mode
+        if ($('.details-normal-text').css('display') === 'none') {
+            var titleText = $('.details-normal-text').text().trim();
+            $('.details-edit-text').val(titleText);
+        }
+    });
+
+
+    
+    $('.save-btn').on('click', function () {
+        // Actions when the user clicks the submit button.
+    });
+
 
 });
 
