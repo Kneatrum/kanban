@@ -32,6 +32,27 @@ def submited():
         return jsonify({'error': 'Invalid request'}), 400
     
 
+@app.route('/update_task', methods=['POST'])
+def updated():
+    if request.method == 'POST':
+        data = request.get_json()
+        task_id = data['task_id']
+        task_title = data['task_title']
+        task_description = data['task_description']
+        task_status = data['task_status']
+
+        print('Task ID', task_id)
+        print('Task Title', task_title)
+        print('Task Description', task_description)
+        print('Task Status', task_status)
+
+        update_task(task_id, task_title, task_description, task_status)
+        return jsonify({'messaage': 'Data successfully received'})
+    else:
+        return jsonify({'messaage': 'Invalid request'})
+
+    
+
 @app.route('/changes', methods=['POST'])
 def changes():
     if request.method == 'POST':
@@ -77,6 +98,24 @@ def create_task(title, body, column):
         except sqlite3.Error as e:
             print("Error", e )
             return False
+
+# update_task(task_id, task_title, task_description, task_status)
+def update_task(task_id, title, description, status):
+
+    if status not in ['to_do', 'in_progress', 'done']:
+        return False
+    
+    task_id = re.search(r'\d+', task_id).group()
+    
+    with sqlite3.connect('data.db') as connection:
+        cursor = connection.cursor()
+
+        try:
+            cursor.execute('UPDATE tasks SET title =?, body = ?  WHERE id = ? AND column = ?;', (title, description, task_id, status))
+            pass
+        except sqlite3.Error as e:
+            print("Error", e)
+            return False    
 
 
 
