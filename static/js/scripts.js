@@ -146,7 +146,7 @@ tasks.forEach(task => {
         normalDetailText.style.display = "block";
         editDetailsText.textContent = "none";
 
-        modal.style.display = "block";
+        $('#formModal').modal('show');
         if (!clickedItem) return;
         // event.dataTransfer.setData('text/plain', null); // Required for Firefox
     });
