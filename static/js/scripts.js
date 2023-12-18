@@ -157,6 +157,10 @@ tasks.forEach(task => {
 
 $(document).ready(function () {
 
+    let titleText = null;
+    let descriptionText = null;
+
+
     $('#myModal').on('hidden.bs.modal', function (e) {
         // Reset elements to their default state when modal is hidden
         $('.title-normal-text, .title-edit-text, .title-edit-icon, .save-btn, .cancel-btn').removeAttr('style');
@@ -190,7 +194,7 @@ $(document).ready(function () {
 
         // Transfer text from paragraph to input when switching to edit mode
         if ($('.title-normal-text').css('display') === 'none') {
-            var titleText = $('.title-normal-text').text().trim();
+            titleText = $('.title-normal-text').text().trim();
             $('.title-edit-text').val(titleText);
         }
     });
@@ -215,7 +219,7 @@ $(document).ready(function () {
         
         // Transfer text from paragraph to input when switching to edit mode
         if ($('.details-normal-text').css('display') === 'none') {
-            var descriptionText = $('.details-normal-text').text().trim();
+            descriptionText = $('.details-normal-text').text().trim();
             $('.details-edit-text').val(descriptionText);
         }
     });
@@ -224,11 +228,23 @@ $(document).ready(function () {
     
     $('.save-btn').on('click', function () {
         // Actions when the user clicks the submit button.
+        let title = $('.title-edit-text').val().trim();
+        let description = $('.details-edit-text').val().trim();
+        
+
+        if (title === '') {
+            console.log('Title is null');
+            title = TaskTitle;
+        } else if (description === '') {
+            console.log('Description is null');
+            description = TaskDescription;
+        }
+
 
         var formData = {
             task_id: modalTaskId,
-            task_title: $('.title-edit-text').val(),
-            task_description: $('.details-edit-text').val(),
+            task_title: title,
+            task_description: description,
             task_status: detailsModalColumnId
         };
 
@@ -245,7 +261,7 @@ $(document).ready(function () {
                 console.log(formData);
                 console.log('Data sent successfully!');
                 console.log(response);
-                location.reload();
+                // location.reload();
                 // $('#formModal').modal('hide'); // Close the modal
                 // Additional actions here
             },
