@@ -155,6 +155,19 @@ tasks.forEach(task => {
 
 $(document).ready(function () {
 
+    $('#myModal').on('hidden.bs.modal', function (e) {
+        // Reset elements to their default state when modal is hidden
+        $('.title-normal-text, .title-edit-text, .title-edit-icon, .save-btn, .cancel-btn').removeAttr('style');
+        $('.details-normal-text, .details-edit-text, .details-edit-icon, .save-btn, .cancel-btn').removeAttr('style');
+        // Clear input fields within the modal when it's hidden
+        $(this).find('input[type=text], textarea').val('');
+    });
+
+    // Hide the edit text fields initially when the modal is opened
+    $('#myModal').on('shown.bs.modal', function (e) {
+        $('.title-edit-text, .details-edit-text').hide();
+    });
+
     $('.title-edit-icon').on('click', function () {
         console.log("Edit icon clicked");
         // Toggle visibility of paragraph and input elements
