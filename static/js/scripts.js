@@ -83,7 +83,8 @@ $(document).ready(function(){
         var formData = {
             Title: $('#Title').val(),
             Details: $('#Details').val(),
-            buttonInfo: $('#add-task-button').data('button-info') // Adding button info directly to formData
+            buttonInfo: $('#add-task-button').data('button-info'), // Adding button info directly to formData
+            type : 'submit'
         };
 
         // Send an AJAX POST request to app.py
@@ -125,7 +126,7 @@ const detailsEditableField = document.querySelector('.details-editable-field');
 const normalDetailText = detailsEditableField.querySelector('.details-normal-text');
 const editDetailsText = detailsEditableField.querySelector('.details-edit-text');
 
-
+let modalTaskId = null;
 let TaskTitle =null;
 let TaskDescription =null;
 
@@ -134,10 +135,10 @@ const tasks = document.querySelectorAll('.card');
 tasks.forEach(task => {
     task.addEventListener('dblclick', event => {
         clickedItem = event.target.closest('.card');
-        let taskId = clickedItem.id;  // Obtaining the task id.
+        modalTaskId = clickedItem.id;  // Obtaining the task id.
         TaskTitle = clickedItem.querySelector('h3').textContent;
         TaskDescription = clickedItem.querySelector('p').textContent;
-        console.log("Clicked Task: ", taskId);
+        console.log("Clicked Task: ", modalTaskId);
         normalTitleText.textContent = TaskTitle;
         normalTitleText.style.display = "block";
         editTitleText.textContent = "none";
@@ -222,6 +223,38 @@ $(document).ready(function () {
     
     $('.save-btn').on('click', function () {
         // Actions when the user clicks the submit button.
+
+        var formData = {
+            Title: $('.title-edit-text').val(),
+            Details: $('.details-edit-text').val(),
+            buttonInfo: modalTaskId,
+            type : 'update'
+        };
+
+        console.log("Form data: ", formData);
+
+        $.ajax({
+            type: 'POST',
+            url: '/submited-form',
+            data: JSON.stringify(formData),
+            contentType: 'application/json',
+            timeout: 3000, // In case the server takes too long to respond.
+            success: function(response) {
+                // Handle success response from the server
+                console.log(formData);
+                console.log('Data sent successfully!');
+                console.log(response);
+                location.reload();
+                // $('#formModal').modal('hide'); // Close the modal
+                // Additional actions here
+            },
+            error: function(error) {
+                // Handle error response from the server
+                console.error('Error:', error);
+                // Additional error handling here 
+            }
+        });
+        console.log('Save button clicked');
     });
 
     $('.cancel-btn').on('click', function () {
