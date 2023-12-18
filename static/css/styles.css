@@ -51,7 +51,11 @@
     cursor: pointer;
 }
 
-.edit-icon {
+.title-edit-icon {
+    margin-left: 50px; 
+}
+
+.details-edit-icon {
     margin-left: 50px; 
 }
 
