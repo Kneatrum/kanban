@@ -84,7 +84,6 @@ $(document).ready(function(){
             Title: $('#Title').val(),
             Details: $('#Details').val(),
             buttonInfo: $('#add-task-button').data('button-info'), // Adding button info directly to formData
-            type : 'submit'
         };
 
         // Send an AJAX POST request to app.py
@@ -129,6 +128,7 @@ const editDetailsText = detailsEditableField.querySelector('.details-edit-text')
 let modalTaskId = null;
 let TaskTitle =null;
 let TaskDescription =null;
+let detailsModalColumnId = null;
 
 // Get the button that opens the modal
 const tasks = document.querySelectorAll('.card');
@@ -136,6 +136,7 @@ tasks.forEach(task => {
     task.addEventListener('dblclick', event => {
         clickedItem = event.target.closest('.card');
         modalTaskId = clickedItem.id;  // Obtaining the task id.
+        detailsModalColumnId = clickedItem.parentNode.id; // Obtaining the id of the parent node.
         TaskTitle = clickedItem.querySelector('h3').textContent;
         TaskDescription = clickedItem.querySelector('p').textContent;
         console.log("Clicked Task: ", modalTaskId);
@@ -225,17 +226,17 @@ $(document).ready(function () {
         // Actions when the user clicks the submit button.
 
         var formData = {
-            Title: $('.title-edit-text').val(),
-            Details: $('.details-edit-text').val(),
-            buttonInfo: modalTaskId,
-            type : 'update'
+            task_id: modalTaskId,
+            task_title: $('.title-edit-text').val(),
+            task_description: $('.details-edit-text').val(),
+            task_status: detailsModalColumnId
         };
 
         console.log("Form data: ", formData);
 
         $.ajax({
             type: 'POST',
-            url: '/submited-form',
+            url: '/update_task',
             data: JSON.stringify(formData),
             contentType: 'application/json',
             timeout: 3000, // In case the server takes too long to respond.
