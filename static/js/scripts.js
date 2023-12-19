@@ -283,4 +283,30 @@ $(document).ready(function () {
 });
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    const ellipsisMenus = document.querySelectorAll('.ellipsis-menu');
+
+    ellipsisMenus.forEach(menu => {
+        const dotsMenu = menu.querySelector('.ellipsis-icon');
+        const optionsList = menu.querySelector('.options-list');
+
+        dotsMenu.addEventListener('click', function(event) {
+            event.stopPropagation();
+            optionsList.style.display = (optionsList.style.display === 'block') ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!menu.contains(event.target)) {
+                optionsList.style.display = 'none';
+            }
+        });
+    });
+});
+
+
+
+
+
+
+
 
