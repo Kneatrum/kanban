@@ -28,6 +28,14 @@
             {% for task in to_do %}
             {% set task_id = 'task_' ~ task['id'] %}
             <div class="card" draggable="true" id="{{task_id}}">
+                <div class="ellipsis-menu">
+                    <span class="ellipsis-icon">&vellip;</span> <!-- Three dots representing the ellipsis -->
+                    <ul class="options-list">
+                        <li>Edit</li>
+                        <li>Delete</li>
+                        <!-- Add more options as needed -->
+                    </ul>
+                </div>
                 <h3>{{ task["title"] }}</h3> 
                 <p>{{ task["body"] }}</p>
             </div>
@@ -40,6 +48,14 @@
             {% for task in in_progress %}
             {% set task_id = 'task_' ~ task['id'] %}
             <div class="card" draggable="true" id="{{task_id}}">
+                <div class="ellipsis-menu">
+                    <span class="ellipsis-icon">&vellip;</span> <!-- Three dots representing the ellipsis -->
+                    <ul class="options-list">
+                        <li>Edit</li>
+                        <li>Delete</li>
+                        <!-- Add more options as needed -->
+                    </ul>
+                </div>
                 <h3>{{ task["title"] }}</h3> 
                 <p>{{ task["body"] }}</p>
             </div>
@@ -52,6 +68,14 @@
             {% for task in done %}
             {% set task_id = 'task_' ~ task['id'] %}
             <div class="card" draggable="true" id="{{task_id}}">
+                <div class="ellipsis-menu">
+                    <span class="ellipsis-icon">&vellip;</span> <!-- Three dots representing the ellipsis -->
+                    <ul class="options-list">
+                        <li>Edit</li>
+                        <li>Delete</li>
+                        <!-- Add more options as needed -->
+                    </ul>
+                </div>
                 <h3>{{ task["title"] }}</h3> 
                 <p>{{ task["body"] }}</p>
             </div>
