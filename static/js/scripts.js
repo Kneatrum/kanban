@@ -289,11 +289,32 @@ document.addEventListener('DOMContentLoaded', function() {
     ellipsisMenus.forEach(menu => {
         const dotsMenu = menu.querySelector('.ellipsis-icon');
         const optionsList = menu.querySelector('.options-list');
-
         dotsMenu.addEventListener('click', function(event) {
             event.stopPropagation();
             optionsList.style.display = (optionsList.style.display === 'block') ? 'none' : 'block';
         });
+
+        optionsList.addEventListener('click', function(event) {
+            const clickedOption = event.target.textContent.trim();
+            const card = menu.closest('.card');
+
+            if (clickedOption === 'Edit') {
+                // const cardContent = card.querySelector('.card-content');
+                // const title = cardContent.querySelector('h3').textContent;
+                // const description = cardContent.querySelector('p').textContent;
+                // openEditForm
+                console.log("Ready to edit task ")
+            } else if (clickedOption === 'Delete') {
+                const confirmed = confirm('Are you sure you want to delete this task?');
+                if (confirmed) {
+                    // card.remove();
+                    // Ajax request to delete this task
+                    console.log("Deleting task ");
+                }
+            }
+            optionsList.style.display = 'none';
+        });
+
 
         document.addEventListener('click', function(event) {
             if (!menu.contains(event.target)) {
