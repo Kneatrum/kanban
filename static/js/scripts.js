@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let draggedItem = null;
 
     columns.forEach(column => {
+        // Loop through each column and add a dragstart event.
         column.addEventListener('dragstart', event => {
             draggedItem = event.target.closest('.card');
             taskId = draggedItem.id;  // Obtaining the task id.
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
         });
 
+        // Actions for when a task is dropped.
         column.addEventListener('drop', event => {
             const dropTarget = event.target.closest('.column');
             columnId = dropTarget.id; // Obtaining the column id.
@@ -100,7 +102,6 @@ $(document).ready(function(){
                 console.log(response);
                 location.reload();
                 $('#formModal').modal('hide'); // Close the modal
-                // Additional actions here
             },
             error: function(error) {
                 // Handle error response from the server
@@ -114,9 +115,9 @@ $(document).ready(function(){
 
 
 // Get the modal
-var modal = document.getElementById("myModal");
+var modal = document.getElementById("detailsModal");
 
-
+// Getting the title and description of the tasks from the html file (index.html)
 const titleEditableField = document.querySelector('.title-editable-field');
 const normalTitleText = titleEditableField.querySelector('.title-normal-text');
 const editTitleText = titleEditableField.querySelector('.title-edit-text');
@@ -133,13 +134,17 @@ let detailsModalColumnId = null;
 // Get the button that opens the modal
 const tasks = document.querySelectorAll('.card');
 tasks.forEach(task => {
+
+    // Add a double-click event to all the cards.
     task.addEventListener('dblclick', event => {
         clickedItem = event.target.closest('.card');
         modalTaskId = clickedItem.id;  // Obtaining the task id.
         detailsModalColumnId = clickedItem.parentNode.id; // Obtaining the id of the parent node.
+
+        // Keeping a copy of the task title and description
         TaskTitle = clickedItem.querySelector('h3').textContent;
         TaskDescription = clickedItem.querySelector('p').textContent;
-        console.log("Clicked Task: ", modalTaskId);
+
         normalTitleText.textContent = TaskTitle;
         normalTitleText.style.display = "block";
         editTitleText.textContent = "none";
@@ -148,7 +153,7 @@ tasks.forEach(task => {
         normalDetailText.style.display = "block";
         editDetailsText.textContent = "none";
 
-        $('#myModal').modal('show');
+        $('#detailsModal').modal('show'); // Show the modal
         if (!clickedItem) return;
         // event.dataTransfer.setData('text/plain', null); // Required for Firefox
     });
@@ -161,7 +166,7 @@ $(document).ready(function () {
     let descriptionText = null;
 
 
-    $('#myModal').on('hidden.bs.modal', function (e) {
+    $('#detailsModal').on('hidden.bs.modal', function (e) {
         // Reset elements to their default state when modal is hidden
         $('.title-normal-text, .title-edit-text, .title-edit-icon, .save-btn, .cancel-btn').removeAttr('style');
         $('.details-normal-text, .details-edit-text, .details-edit-icon, .save-btn, .cancel-btn').removeAttr('style');
@@ -170,7 +175,7 @@ $(document).ready(function () {
     });
 
     // Hide the edit text fields initially when the modal is opened
-    $('#myModal').on('shown.bs.modal', function (e) {
+    $('#detailsModal').on('shown.bs.modal', function (e) {
         $('.title-edit-text, .details-edit-text').hide();
     });
 
@@ -231,7 +236,7 @@ $(document).ready(function () {
         let title = $('.title-edit-text').val().trim();
         let description = $('.details-edit-text').val().trim();
         
-
+        // If the user has not changed the title or description, use the default one.
         if (title === '') {
             console.log('Title is null');
             title = TaskTitle;
@@ -240,7 +245,7 @@ $(document).ready(function () {
             description = TaskDescription;
         }
 
-
+        // Save the variables in a key-value format inside the formData object.
         var formData = {
             task_id: modalTaskId,
             task_title: title,
@@ -248,8 +253,8 @@ $(document).ready(function () {
             task_status: detailsModalColumnId
         };
 
-        console.log("Form data: ", formData);
 
+        // Ajax request to send the form data to the 'update_task' route
         $.ajax({
             type: 'POST',
             url: '/update_task',
@@ -261,9 +266,6 @@ $(document).ready(function () {
                 console.log(formData);
                 console.log('Data sent successfully!');
                 console.log(response);
-                // location.reload();
-                // $('#formModal').modal('hide'); // Close the modal
-                // Additional actions here
             },
             error: function(error) {
                 // Handle error response from the server
@@ -275,7 +277,7 @@ $(document).ready(function () {
     });
 
     $('.cancel-btn').on('click', function () {
-        $('#myModal').modal('hide');
+        $('#detailsModal').modal('hide');
         console.log('Cancel button clicked');
     });
 
@@ -284,6 +286,8 @@ $(document).ready(function () {
 
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    // Select all the elipsis menus and loop through them
     const ellipsisMenus = document.querySelectorAll('.ellipsis-menu');
 
     ellipsisMenus.forEach(menu => {
@@ -294,10 +298,12 @@ document.addEventListener('DOMContentLoaded', function() {
             optionsList.style.display = (optionsList.style.display === 'block') ? 'none' : 'block';
         });
 
+        // Adding a click event listener to the menu items.
         optionsList.addEventListener('click', function(event) {
             const clickedOption = event.target.textContent.trim();
             const card = menu.closest('.card');
 
+            // Actions for when the options (Edit or Delete) are clicked.
             if (clickedOption === 'Edit') {
                 // To improve on this later.
                 // Double clicking on the task to edit works fine.
@@ -305,9 +311,10 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (clickedOption === 'Delete') {
                 const confirmed = confirm('Are you sure you want to delete this task?');
                 if (confirmed) {
-                    let card_id = card.id
+                    let card_id = card.id // Obtain the card id. We use this id to delete the task.
                     var formData = { task_id: card_id };
 
+                    // Ajax request to send the task id to the '/delete' endpoint.
                     $.ajax({
                         type: 'POST',
                         url: '/delete',
@@ -318,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             // Handle success response from the server
                             console.log('Data sent successfully!');
                             console.log(response);
-                            location.reload();
+                            location.reload(); // Reload the page after updating the database information.
                         },
                         error: function(error) {
                             // Handle error response from the server

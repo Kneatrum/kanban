@@ -1,6 +1,4 @@
-from flask import Flask, redirect, render_template, request, session, url_for, jsonify
-from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import *
+from flask import Flask,  render_template, request, jsonify
 import sqlite3
 import re
 
@@ -8,7 +6,7 @@ import re
 app = Flask(__name__)
 
 
-
+# The home page.
 @app.route('/')
 def index():
     to_do = retrieve_data('to_do')
@@ -17,6 +15,7 @@ def index():
     return render_template('index.html', to_do=to_do, in_progress=in_progress, done=done)
 
 
+# Process request to create a new task.
 @app.route('/submited-form', methods=['POST'])
 def submited():
     if request.method == 'POST':
@@ -26,12 +25,11 @@ def submited():
         column = data.get('buttonInfo')
         createTableIfNotExists()
         create_task(title, body, column)
-        
         return jsonify({'message': 'Data was successfully received'}), 200
     else:
         return jsonify({'error': 'Invalid request'}), 400
     
-
+# Processing the request to update the content of a task.
 @app.route('/update_task', methods=['POST'])
 def updated():
     if request.method == 'POST':
@@ -40,33 +38,26 @@ def updated():
         task_title = data['task_title']
         task_description = data['task_description']
         task_status = data['task_status']
-
-        print('Task ID', task_id)
-        print('Task Title', task_title)
-        print('Task Description', task_description)
-        print('Task Status', task_status)
-
         update_task(task_id, task_title, task_description, task_status)
         return jsonify({'messaage': 'Data successfully received'})
     else:
         return jsonify({'messaage': 'Invalid request'})
 
     
-
+# Recording the movement of tasks betweeen the 3 status' To do, In Progress, and Done.
 @app.route('/changes', methods=['POST'])
 def changes():
     if request.method == 'POST':
         data = request.get_json()
         task_id = data.get('taskId')
         new_column = data.get('columnId')
-
         update_gui_changes(task_id, new_column)
-
         return jsonify({'message': 'Data was successfully received'}), 200
     else:
         return jsonify({'error': 'Message not received'}), 400
     
 
+# Process the request to delete a task.
 @app.route('/delete', methods=['POST'])
 def delete():
     if request.method == 'POST':
@@ -78,10 +69,11 @@ def delete():
         return jsonify({'error': 'Message not received'}), 400
 
 
+# Process the request to delete a task.
 def delete_task(task_id):
     with sqlite3.connect('data.db') as connection:
         cursor = connection.cursor()
-        task_id = re.search(r'\d+', task_id).group()
+        task_id = re.search(r'\d+', task_id).group() # Extracting the task id in form of a number.
         try:
             cursor.execute('DELETE FROM tasks WHERE id = ?;', task_id)
         except Exception as e:
@@ -91,10 +83,8 @@ def delete_task(task_id):
     
 
 def createTableIfNotExists():
-
     with sqlite3.connect('data.db') as connection:
         cursor = connection.cursor()
-
         cursor.execute(
             'CREATE TABLE IF NOT EXISTS tasks ( \
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\
@@ -102,19 +92,16 @@ def createTableIfNotExists():
                 title TEXT NOT NULL,\
                 body TEXT NOT NULL);'
                 )
-    
         connection.commit()
     
     
 
 def create_task(title, body, column):
-
     if column not in ['to_do', 'in_progress', 'done']:
         return False
 
     with sqlite3.connect('data.db') as connection:
         cursor = connection.cursor()
-
         try:
             cursor.execute('INSERT INTO tasks (title, body, column) VALUES (?, ?, ?);', (title, body, column))
             return True
@@ -122,13 +109,13 @@ def create_task(title, body, column):
             print("Error", e )
             return False
 
-# update_task(task_id, task_title, task_description, task_status)
+
 def update_task(task_id, title, description, status):
 
     if status not in ['to_do', 'in_progress', 'done']:
         return False
     
-    task_id = re.search(r'\d+', task_id).group()
+    task_id = re.search(r'\d+', task_id).group() # Extracting the task id in form of a number.
     
     with sqlite3.connect('data.db') as connection:
         cursor = connection.cursor()
@@ -144,18 +131,21 @@ def update_task(task_id, title, description, status):
 
 def update_gui_changes(task_id, new_column):
 
-    task_id = re.search(r'\d+', task_id).group()
+    task_id = re.search(r'\d+', task_id).group() # Extracting the task id in form of a number.
 
     with sqlite3.connect('data.db') as connection:
         cursor = connection.cursor()
-
         try:
             cursor.execute('UPDATE tasks SET column = ? WHERE id = ?;', (new_column, task_id))
         except sqlite3.Error as e:
             print("Error", e)
 
+
+
 def retrieve_data(column):
-    def create_dict(data):
+    # A function to format the data as a list of dictionaries.
+    # This makes it easier to process in jinja.
+    def create_list_of_dicts(data):
         if data is None:
             return None
         result = []
@@ -163,7 +153,6 @@ def retrieve_data(column):
         for row in data:
             row_dict = {columns[i]: row[i] for i in range(len(columns))}  
             result.append(row_dict)  
-
         return result
 
     with sqlite3.connect('data.db') as connection:
@@ -172,7 +161,7 @@ def retrieve_data(column):
         try:
             cursor.execute('SELECT * FROM tasks WHERE column = ?;',(column,))
             rows = cursor.fetchall()
-            column_data = create_dict(rows)
+            column_data = create_list_of_dicts(rows)
             return column_data
         except sqlite3.Error as e:
             print("Error", e)

@@ -29,11 +29,10 @@
             {% set task_id = 'task_' ~ task['id'] %}
             <div class="card" draggable="true" id="{{task_id}}">
                 <div class="ellipsis-menu">
-                    <span class="ellipsis-icon">&vellip;</span> <!-- Three dots representing the ellipsis -->
+                    <span class="ellipsis-icon">&vellip;</span> 
                     <ul class="options-list">
                         <li>Edit</li>
                         <li>Delete</li>
-                        <!-- Add more options as needed -->
                     </ul>
                 </div>
                 <h3>{{ task["title"] }}</h3> 
@@ -49,11 +48,10 @@
             {% set task_id = 'task_' ~ task['id'] %}
             <div class="card" draggable="true" id="{{task_id}}">
                 <div class="ellipsis-menu">
-                    <span class="ellipsis-icon">&vellip;</span> <!-- Three dots representing the ellipsis -->
+                    <span class="ellipsis-icon">&vellip;</span> 
                     <ul class="options-list">
                         <li>Edit</li>
                         <li>Delete</li>
-                        <!-- Add more options as needed -->
                     </ul>
                 </div>
                 <h3>{{ task["title"] }}</h3> 
@@ -69,11 +67,10 @@
             {% set task_id = 'task_' ~ task['id'] %}
             <div class="card" draggable="true" id="{{task_id}}">
                 <div class="ellipsis-menu">
-                    <span class="ellipsis-icon">&vellip;</span> <!-- Three dots representing the ellipsis -->
+                    <span class="ellipsis-icon">&vellip;</span> 
                     <ul class="options-list">
                         <li>Edit</li>
                         <li>Delete</li>
-                        <!-- Add more options as needed -->
                     </ul>
                 </div>
                 <h3>{{ task["title"] }}</h3> 
@@ -106,18 +103,17 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-                <!-- <p class="modal-info"></p> -->
             </div>
         </div>
         </div>
     </div>
 
 
-    <div class="modal" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal" tabindex="-1" role="dialog" id="detailsModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalTitle"> Details </h5>
+                    <h5 class="modal-title" id="detailsModalTitle"> Details </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
