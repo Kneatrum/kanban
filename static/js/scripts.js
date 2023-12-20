@@ -299,11 +299,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const card = menu.closest('.card');
 
             if (clickedOption === 'Edit') {
-                // const cardContent = card.querySelector('.card-content');
-                // const title = cardContent.querySelector('h3').textContent;
-                // const description = cardContent.querySelector('p').textContent;
-                // openEditForm
-                console.log("Ready to edit task ")
+                // To improve on this later.
+                // Double clicking on the task to edit works fine.
+                confirm('Double click on the task to edit');
             } else if (clickedOption === 'Delete') {
                 const confirmed = confirm('Are you sure you want to delete this task?');
                 if (confirmed) {
