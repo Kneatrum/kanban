@@ -307,9 +307,26 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (clickedOption === 'Delete') {
                 const confirmed = confirm('Are you sure you want to delete this task?');
                 if (confirmed) {
-                    // card.remove();
-                    // Ajax request to delete this task
-                    console.log("Deleting task ");
+                    let card_id = card.id
+                    var formData = { task_id: card_id };
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/delete',
+                        data: JSON.stringify(formData),
+                        contentType: 'application/json',
+                        timeout: 3000, // In case the server takes too long to respond.
+                        success: function(response) {
+                            // Handle success response from the server
+                            console.log('Data sent successfully!');
+                            console.log(response);
+                            location.reload();
+                        },
+                        error: function(error) {
+                            // Handle error response from the server
+                            console.error('Error:', error);
+                        }
+                    });
                 }
             }
             optionsList.style.display = 'none';
