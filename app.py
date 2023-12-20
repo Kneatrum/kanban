@@ -75,7 +75,7 @@ def delete_task(task_id):
         cursor = connection.cursor()
         task_id = re.search(r'\d+', task_id).group() # Extracting the task id in form of a number.
         try:
-            cursor.execute('DELETE FROM tasks WHERE id = ?;', task_id)
+            cursor.execute('DELETE FROM tasks WHERE id = ?;', (task_id,))
         except Exception as e:
             print('Error', e)
             return False
