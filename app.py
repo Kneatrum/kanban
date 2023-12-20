@@ -122,7 +122,7 @@ def create_task(title, body, column):
             print("Error", e )
             return False
 
-
+# update_task(task_id, task_title, task_description, task_status)
 def update_task(task_id, title, description, status):
 
     if status not in ['to_do', 'in_progress', 'done']:
