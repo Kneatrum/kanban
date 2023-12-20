@@ -67,6 +67,29 @@ def changes():
         return jsonify({'error': 'Message not received'}), 400
     
 
+@app.route('/delete', methods=['POST'])
+def delete():
+    if request.method == 'POST':
+        data = request.get_json()
+        task_id = data.get('task_id')
+        delete_task(task_id)
+        return jsonify({'message': 'Data was successfully deleted'}), 200
+    else:
+        return jsonify({'error': 'Message not received'}), 400
+
+
+def delete_task(task_id):
+    with sqlite3.connect('data.db') as connection:
+        cursor = connection.cursor()
+        task_id = re.search(r'\d+', task_id).group()
+        try:
+            cursor.execute('DELETE FROM tasks WHERE id = ?;', task_id)
+        except Exception as e:
+            print('Error', e)
+            return False
+
+    
+
 def createTableIfNotExists():
 
     with sqlite3.connect('data.db') as connection:
@@ -99,7 +122,7 @@ def create_task(title, body, column):
             print("Error", e )
             return False
 
-# update_task(task_id, task_title, task_description, task_status)
+
 def update_task(task_id, title, description, status):
 
     if status not in ['to_do', 'in_progress', 'done']:
