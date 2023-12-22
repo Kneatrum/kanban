@@ -17,6 +17,7 @@ A modal appears and allows the user to add the task title and description. Once 
 
 #### Deleting tasks.
 - To delete a task, the user should go to the top right of the task and click on the three vertical dots and select the Delete option.
+- Prior to deleting a task, the user is prompted to confirm the action. The task is deleted upon the user's click on the "OK" button.
 
 # Technical description.
 This application's development is suppoerted by Flask, a framework that facilitates the generation of dynamic content.
