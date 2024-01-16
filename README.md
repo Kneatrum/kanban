@@ -1,5 +1,5 @@
 # Task Management Kanban Board.
-#### Alternatively, you can watch the demo on [Youtube](https://youtu.be/S2bQ46OXk7A).
+#### Watch the demo on [Youtube](https://youtu.be/S2bQ46OXk7A).
 This is a task management platform that enables a user to record tasks and organize them into three categories. To do, In progress, and Done. 
 
 # Basic Usage.
